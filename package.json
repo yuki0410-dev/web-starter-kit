@@ -1,0 +1,59 @@
+{
+  "name": "web-starter-kit",
+  "version": "1.0.0",
+  "description": "Web Starter Kit - a workflow for static websites",
+  "homepage": "https://github.com/ohnaka0410/web-starter-kit#readme",
+  "bugs": {
+    "url": "https://github.com/ohnaka0410/web-starter-kit/issues"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "yuki ohnaka"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ohnaka0410/web-starter-kit.git"
+  },
+  "scripts": {
+    "start": "cross-env NODE_ENV=development gulp default",
+    "watch": "cross-env NODE_ENV=development gulp watch",
+    "build": "cross-env NODE_ENV=production gulp build",
+    "tree": "cross-env NODE_ENV=development gulp default --tasks"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "autoprefixer": "^9.1.5",
+    "babel-loader": "^8.0.2",
+    "browser-sync": "^2.24.7",
+    "cross-env": "^5.2.0",
+    "csswring": "^7.0.0",
+    "del": "^3.0.0",
+    "front-matter": "^2.3.0",
+    "gulp": "^4.0.0",
+    "gulp-data": "^1.3.1",
+    "gulp-hb": "^7.0.1",
+    "gulp-if": "^2.0.2",
+    "gulp-load-plugins": "^1.5.0",
+    "gulp-plumber": "^1.2.0",
+    "gulp-postcss": "^8.0.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-sass": "^4.0.1",
+    "gulp-sourcemaps": "^2.6.4",
+    "handlebars": "^4.0.12",
+    "handlebars-helpers": "^0.10.0",
+    "handlebars-layouts": "^3.1.4",
+    "node-notifier": "^5.2.1",
+    "postcss-flexbugs-fixes": "^4.1.0",
+    "postcss-gap-properties": "^1.0.0",
+    "postcss-reporter": "^6.0.0",
+    "vinyl-named": "^1.1.0",
+    "webpack": "^4.17.2",
+    "webpack-stream": "^5.1.1",
+    "yargs": "^12.0.1"
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "private": true
+}
