@@ -269,6 +269,7 @@ gulp.task('watch::resource', () =>
  * Watch Task
  */
 gulp.task('watch', gulp.series(
+  'clean',
   gulp.parallel(
     'build::html::handlebars',
     'build::style::sass',
