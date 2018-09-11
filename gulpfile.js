@@ -6,9 +6,10 @@ const yargs        = Object.assign({}, {
   dest : (isProd) ? 'dest' : '.cache',
 }, require('yargs').argv);
 const src          = {
-  'build' : {},
-  'watch' : {},
-  'copy'  : {},
+  'build'  : {},
+  'watch'  : {},
+  'format' : {},
+  'copy'   : {},
 };
 const errorHandler = function(error) {
   const notifier = require('node-notifier');
@@ -65,8 +66,9 @@ gulp.task('clean', () =>
 /* =========================================================
  *  HTML Tasks
  * ========================================================= */
-src.build.html = {};
-src.watch.html = {};
+src.build.html  = {};
+src.watch.html  = {};
+src.format.html = {};
 /* ---------------------------------------------------------
  *  Handlebars Tasks
  * --------------------------------------------------------- */
@@ -141,8 +143,9 @@ gulp.task('watch::html::handlebars', () =>
 /* =========================================================
  *  Style Tasks
  * ========================================================= */
-src.build.style = {};
-src.watch.style = {};
+src.build.style  = {};
+src.watch.style  = {};
+src.format.style = {};
 /* ---------------------------------------------------------
  *  Sass Tasks
  * --------------------------------------------------------- */
@@ -174,12 +177,25 @@ gulp.task('watch::style::sass', () =>
     'build::style::sass'
   ))
 );
+/**
+ * Format Sass Task
+ */
+src.format.style.sass = src.watch.style.sass;
+gulp.task('format::style::sass', () =>
+  gulp.src(src.format.style.sass)
+    .pipe($.plumber({
+      'errorHandler': errorHandler,
+    }))
+    .pipe($.prettier())
+    .pipe(gulp.dest(yargs.src))
+);
 
 /* =========================================================
  *  JavaScript Tasks
  * ========================================================= */
-src.build.script = {};
-src.watch.script = {};
+src.build.script  = {};
+src.watch.script  = {};
+src.format.script = {};
 /* ---------------------------------------------------------
  *  Webpack Tasks
  * --------------------------------------------------------- */
@@ -218,6 +234,18 @@ gulp.task('watch::script::webpack', () =>
     'build::script::webpack',
     'server::reload'
   ))
+);
+/**
+ * Format Webpack Task
+ */
+src.format.script.webpack = src.watch.script.webpack;
+gulp.task('format::script::webpack', () =>
+  gulp.src(src.format.script.webpack)
+    .pipe($.plumber({
+      'errorHandler': errorHandler,
+    }))
+    .pipe($.prettier())
+    .pipe(gulp.dest(yargs.src))
 );
 
 /* =========================================================
@@ -281,6 +309,13 @@ gulp.task('watch', gulp.series(
     'watch::script::webpack',
     'watch::resource'
   )
+));
+/**
+ * Format Task
+ */
+gulp.task('format', gulp.parallel(
+  'format::style::sass',
+  'format::script::webpack'
 ));
 /**
  * Default Task

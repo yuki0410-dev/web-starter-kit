@@ -18,6 +18,7 @@
     "start": "cross-env NODE_ENV=development gulp default",
     "watch": "cross-env NODE_ENV=development gulp watch",
     "build": "cross-env NODE_ENV=production gulp build",
+    "format": "cross-env NODE_ENV=development gulp format",
     "tree": "cross-env NODE_ENV=development gulp default --tasks"
   },
   "devDependencies": {
@@ -37,6 +38,7 @@
     "gulp-load-plugins": "^1.5.0",
     "gulp-plumber": "^1.2.0",
     "gulp-postcss": "^8.0.0",
+    "gulp-prettier": "^2.0.0",
     "gulp-rename": "^1.4.0",
     "gulp-sass": "^4.0.1",
     "gulp-sourcemaps": "^2.6.4",
