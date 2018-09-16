@@ -183,10 +183,15 @@ gulp.task('watch::style::sass', () =>
 src.format.style.sass = src.watch.style.sass;
 gulp.task('format::style::sass', () =>
   gulp.src(src.format.style.sass)
-    .pipe($.plumber({
-      'errorHandler': errorHandler,
+    .pipe($.stylelint({
+      'reporters': [
+        {
+          'formatter': 'string',
+          'console': true,
+        },
+      ],
+      'fix': true,
     }))
-    .pipe($.prettier())
     .pipe(gulp.dest(yargs.src))
 );
 
@@ -241,10 +246,13 @@ gulp.task('watch::script::webpack', () =>
 src.format.script.webpack = src.watch.script.webpack;
 gulp.task('format::script::webpack', () =>
   gulp.src(src.format.script.webpack)
-    .pipe($.plumber({
-      'errorHandler': errorHandler,
-    }))
-    .pipe($.prettier())
+    .pipe($.eslint(
+      {
+        'fix': true
+      }
+    ))
+    .pipe($.eslint.format())
+    .pipe($.eslint.failAfterError())
     .pipe(gulp.dest(yargs.src))
 );
 
@@ -313,7 +321,7 @@ gulp.task('watch', gulp.series(
 /**
  * Format Task
  */
-gulp.task('format', gulp.parallel(
+gulp.task('format', gulp.series(
   'format::style::sass',
   'format::script::webpack'
 ));
