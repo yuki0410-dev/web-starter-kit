@@ -6,10 +6,10 @@ const yargs        = Object.assign({}, {
   dest : (isProd) ? 'dest' : '.cache',
 }, require('yargs').argv);
 const src          = {
-  'build'  : {},
-  'watch'  : {},
-  'format' : {},
-  'copy'   : {},
+  'build' : {},
+  'watch' : {},
+  'fix'   : {},
+  'copy'  : {},
 };
 const errorHandler = function(error) {
   const notifier = require('node-notifier');
@@ -66,9 +66,9 @@ gulp.task('clean', () =>
 /* =========================================================
  *  HTML Tasks
  * ========================================================= */
-src.build.html  = {};
-src.watch.html  = {};
-src.format.html = {};
+src.build.html = {};
+src.watch.html = {};
+src.fix.html   = {};
 /* ---------------------------------------------------------
  *  Handlebars Tasks
  * --------------------------------------------------------- */
@@ -143,9 +143,9 @@ gulp.task('watch::html::handlebars', () =>
 /* =========================================================
  *  Style Tasks
  * ========================================================= */
-src.build.style  = {};
-src.watch.style  = {};
-src.format.style = {};
+src.build.style = {};
+src.watch.style = {};
+src.fix.style   = {};
 /* ---------------------------------------------------------
  *  Sass Tasks
  * --------------------------------------------------------- */
@@ -178,11 +178,11 @@ gulp.task('watch::style::sass', () =>
   ))
 );
 /**
- * Format Sass Task
+ * Fix Sass Task
  */
-src.format.style.sass = src.watch.style.sass;
-gulp.task('format::style::sass', () =>
-  gulp.src(src.format.style.sass)
+src.fix.style.sass = src.watch.style.sass;
+gulp.task('fix::style::sass', () =>
+  gulp.src(src.fix.style.sass)
     .pipe($.stylelint({
       'reporters': [
         {
@@ -198,9 +198,9 @@ gulp.task('format::style::sass', () =>
 /* =========================================================
  *  JavaScript Tasks
  * ========================================================= */
-src.build.script  = {};
-src.watch.script  = {};
-src.format.script = {};
+src.build.script = {};
+src.watch.script = {};
+src.fix.script   = {};
 /* ---------------------------------------------------------
  *  Webpack Tasks
  * --------------------------------------------------------- */
@@ -241,11 +241,11 @@ gulp.task('watch::script::webpack', () =>
   ))
 );
 /**
- * Format Webpack Task
+ * Fix Webpack Task
  */
-src.format.script.webpack = src.watch.script.webpack;
-gulp.task('format::script::webpack', () =>
-  gulp.src(src.format.script.webpack)
+src.fix.script.webpack = src.watch.script.webpack;
+gulp.task('fix::script::webpack', () =>
+  gulp.src(src.fix.script.webpack)
     .pipe($.eslint(
       {
         'fix': true
@@ -319,11 +319,11 @@ gulp.task('watch', gulp.series(
   )
 ));
 /**
- * Format Task
+ * Fix Task
  */
-gulp.task('format', gulp.series(
-  'format::style::sass',
-  'format::script::webpack'
+gulp.task('fix', gulp.series(
+  'fix::style::sass',
+  'fix::script::webpack'
 ));
 /**
  * Default Task

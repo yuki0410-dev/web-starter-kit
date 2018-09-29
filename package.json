@@ -18,7 +18,7 @@
     "start": "cross-env NODE_ENV=development gulp default",
     "watch": "cross-env NODE_ENV=development gulp watch",
     "build": "cross-env NODE_ENV=production gulp build",
-    "format": "cross-env NODE_ENV=development gulp format",
+    "fix": "cross-env NODE_ENV=development gulp fix",
     "tree": "cross-env NODE_ENV=development gulp default --tasks"
   },
   "devDependencies": {
