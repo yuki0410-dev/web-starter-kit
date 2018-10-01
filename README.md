@@ -14,7 +14,7 @@ With this kit, you can start developing.
 | PostCss Support              | Autoprefixer Support using Postcss.                                                                                          |
 | Performance optimization     | Minify and concatenate JavaScript, CSS to help keep your pages lean.                                                         |
 | Code Formatting              | Formatting source in src directory with stylelint, ESLint, and prettier.                                                     |
-| Babel Support                | ES8 support using Babel.                                                                                                     |
+| Babel Support                | ES8 support using Babel.                                                                                                     |
 | Built-in HTTP Server         | A built-in server for previewing your site locally while you develop and iterate.                                            |
 | Live Browser Reloading       | Reload the browser in real-time anytime an edit is made without the need for an extension.                                   |
 | Cross-device Synchronization | Synchronize clicks, scrolls, forms and live-reload across multiple devices as you edit your project. Powered by BrowserSync. |
@@ -33,7 +33,7 @@ yarn
 yarn start
 ```
 
-### Start Development without Preview Server
+### Start Development without Preview Server
 ```
 yarn watch
 ```
