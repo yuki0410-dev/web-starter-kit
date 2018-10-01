@@ -28,9 +28,9 @@ Download the kit or clone this repository and build on your source included in t
 yarn
 ```
 
-### Start Development with Preview Server
+### Start Development with Preview Server
 ```
-yarn start
+yarn start
 ```
 
 ### Start Development without Preview Server
