@@ -51,7 +51,7 @@
     "gulp-sass": "^4.0.1",
     "gulp-sourcemaps": "^2.6.4",
     "gulp-stylelint": "^7.0.0",
-    "handlebars": "^4.0.12",
+    "handlebars": "^4.5.3",
     "handlebars-helpers": "^0.10.0",
     "handlebars-layouts": "^3.1.4",
     "node-notifier": "^5.2.1",
