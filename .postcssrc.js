@@ -1,67 +1,46 @@
-module.exports = ctx => {
-
-  const isProd = (process.env.NODE_ENV === 'production');
-
+/**
+ * PostCSS Configuration
+ */
+module.exports = (ctx) => {
   return {
+    map: ctx.options.map,
     plugins: {
-      'postcss-gap-properties': {
-        /**
-         * @module postcss-gap-properties
-         * @url https://www.npmjs.com/package/postcss-gap-properties
-         * --------------------------------------------------------- */
-        // 'preserve': true,
+      "postcss-import": {
+        // filter: () => true,
+        // root: process.cwd(),
+        // path: [],
+        // plugins: undefined,
+        plugins: [
+          // require("stylelint")(),
+        ],
+        // resolve: null,
+        // load: null,
+        // skipDuplicates: true,
+        // addModulesDirectories: [],
       },
-      'autoprefixer': {
-        /**
-         * @module autoprefixer
-         * @url https://www.npmjs.com/package/autoprefixer
-         * --------------------------------------------------------- */
-        // 'env': ,
-        // 'cascade': true,
-        'cascade': false,
-        // 'add': true,
-        // 'remove': true,
-        // 'supports': true,
-        // 'flexbox': true,
-        // 'grid': false,
-        'grid': true,
-        // 'stats':,
-        // 'browsers': ,
+      "postcss-preset-env": {
+        stage: 3,
+        // browsers: "last 2 versions",
+        autoprefixer: {
+          // env: undefined,
+          // cascade: true,
+          cascade: false,
+          // add: true,
+          // remove: true,
+          // supports: true,
+          // flexbox: true,
+          // grid: false,
+          grid: "autoplace",
+          // stats: undefined,
+          // browsers: undefined,
+        },
+        // insertBefore: {},
+        // insertAfter: {},
+        // preserve: false,
+        // importFrom: undefined,
+        // exportTo: undefined,
       },
-      'postcss-flexbugs-fixes': {
-        /**
-         * @module postcss-flexbugs-fixes
-         * @url https://www.npmjs.com/package/postcss-flexbugs-fixes
-         * --------------------------------------------------------- */
-      },
-      'csswring': isProd ? {
-        /**
-         * @module csswring
-         * @url https://www.npmjs.com/package/csswring
-         * --------------------------------------------------------- */
-        // 'preserveHacks': false,
-        'preserveHacks': true,
-        // 'removeAllComments': false,
-        'removeAllComments': true,
-      } : false,
-      'postcss-reporter': {
-        /**
-         * @module postcss-reporter
-         * @url https://www.npmjs.com/package/postcss-reporter
-         * --------------------------------------------------------- */
-        // 'clearReportedMessages': false,
-        'clearReportedMessages': true,
-        // 'formatter': ,
-        // 'plugins': [],
-        // 'filter': function(message) { return (message.type === 'warning'); },
-        // 'clearAllMessages': false,
-        'clearAllMessages': true,
-        // 'throwError': false,
-        // 'sortByPosition': true,
-        // 'positionless ': 'first',
-        // 'noIcon': false,
-        // 'noPlugin': false,
-      },
+      "postcss-flexbugs-fixes": {},
     },
-  }
-}
+  };
+};

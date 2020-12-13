@@ -1,6 +1,6 @@
 {
   "name": "web-starter-kit",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "Web Starter Kit - a workflow for static websites",
   "homepage": "https://github.com/ohnaka0410/web-starter-kit#readme",
   "bugs": {
@@ -15,62 +15,69 @@
     "url": "https://github.com/ohnaka0410/web-starter-kit.git"
   },
   "scripts": {
-    "start": "cross-env NODE_ENV=development gulp default",
-    "watch": "cross-env NODE_ENV=development gulp watch",
-    "build": "cross-env NODE_ENV=production gulp build",
-    "fix": "cross-env NODE_ENV=development gulp fix",
-    "tree": "cross-env NODE_ENV=development gulp default --tasks"
+    "prebuild": "rimraf dist",
+    "build": "run-p build::*",
+    "build::css": "postcss \"./src/**/!(_)*.{pcss,css}\" --base src --dir dist --ext css --no-map",
+    "postbuild": "copyfiles --up 1 --soft \"./public/**/*\" dist",
+    "start": "run-p watch server",
+    "prewatch": "rimraf .cache",
+    "watch": "run-p watch::*",
+    "watch::css": "postcss \"./src/**/!(_)*.{pcss,css}\" --base src --dir .cache --ext css --watch",
+    "server": "browser-sync start --config \"./.bs-config.js\"",
+    "format": "run-p format::*",
+    "format::general": "prettier --write \"./(src|public)/**/*.{html,pcss,css}\"",
+    "format::css": "stylelint --fix \"./src/**/*.{pcss,css}\"",
+    "format::js": "eslint --fix \"./public/**/*.{js,ts}\""
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.*": [
+      "npm run format::general"
+    ],
+    "*.{css,pcss}": [
+      "npm run format::css"
+    ],
+    "*.{js,ts}": [
+      "npm run lint::js"
+    ]
+  },
+  "dependencies": {
+    "destyle.css": "^2.0.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0",
-    "@babel/preset-env": "^7.0.0",
-    "autoprefixer": "^9.1.5",
-    "babel-loader": "^8.0.2",
-    "browser-sync": "^2.24.7",
-    "cross-env": "^5.2.0",
-    "csswring": "^7.0.0",
-    "del": "^3.0.0",
-    "eslint": "^5.6.0",
-    "eslint-config-prettier": "^3.0.1",
-    "eslint-config-standard": "^12.0.0",
-    "eslint-plugin-import": "^2.14.0",
-    "eslint-plugin-node": "^7.0.1",
-    "eslint-plugin-prettier": "^2.6.2",
-    "eslint-plugin-promise": "^4.0.1",
-    "eslint-plugin-standard": "^4.0.0",
-    "front-matter": "^2.3.0",
-    "gulp": "^4.0.0",
-    "gulp-data": "^1.3.1",
-    "gulp-eslint": "^5.0.0",
-    "gulp-hb": "^7.0.1",
-    "gulp-if": "^2.0.2",
-    "gulp-load-plugins": "^1.5.0",
-    "gulp-plumber": "^1.2.0",
-    "gulp-postcss": "^8.0.0",
-    "gulp-rename": "^1.4.0",
-    "gulp-sass": "^4.0.1",
-    "gulp-sourcemaps": "^2.6.4",
-    "gulp-stylelint": "^7.0.0",
-    "handlebars": "^4.0.12",
-    "handlebars-helpers": "^0.10.0",
-    "handlebars-layouts": "^3.1.4",
-    "node-notifier": "^5.2.1",
-    "postcss-flexbugs-fixes": "^4.1.0",
-    "postcss-gap-properties": "^1.0.0",
-    "postcss-reporter": "^6.0.0",
-    "prettier": "^1.14.2",
-    "stylelint": "^9.5.0",
-    "stylelint-config-recess-order": "^2.0.0",
-    "stylelint-config-recommended": "^2.1.0",
-    "stylelint-config-standard": "^18.2.0",
-    "stylelint-scss": "^3.3.0",
-    "vinyl-named": "^1.1.0",
-    "webpack": "^4.17.2",
-    "webpack-stream": "^5.1.1",
-    "yargs": "^12.0.1"
+    "browser-sync": "^2.26.13",
+    "copyfiles": "^2.4.1",
+    "eslint": "^7.15.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.2.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "htmlhint": "^0.14.2",
+    "husky": "^4.3.5",
+    "lint-staged": "^10.5.3",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.2.1",
+    "postcss-cli": "^8.3.0",
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-import": "^13.0.0",
+    "postcss-preset-env": "^6.7.0",
+    "prettier": "^2.2.1",
+    "rimraf": "^3.0.2",
+    "stylelint": "^13.8.0",
+    "stylelint-config-prettier": "^8.0.2",
+    "stylelint-config-recess-order": "^2.3.0",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-declaration-block-no-ignored-properties": "^2.3.0",
+    "stylelint-prettier": "^1.1.2"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=12"
   },
   "private": true
 }
